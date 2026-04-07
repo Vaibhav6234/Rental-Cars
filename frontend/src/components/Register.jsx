@@ -18,7 +18,7 @@ const Register = ({ onLogin }) => {
     }
     try {
       setIsLoading(true)
-      const { data } = await axios.post('http://localhost:3000/register', form)
+      const { data } = await axios.post('http://localhost:3000/api/auth/register', form)
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
       onLogin(data.user.role)

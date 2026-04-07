@@ -38,7 +38,7 @@ const CheckoutPage = () => {
       setIsPaying(true);
 
       const token = localStorage.getItem('token')
-      await axios.post("http://localhost:3000/book-car", {
+      await axios.post("http://localhost:3000/api/booking/book-car", {
         carId,
         from,
         to,
