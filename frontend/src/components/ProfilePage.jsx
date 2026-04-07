@@ -30,7 +30,7 @@ const ProfilePage = ({ onLogin }) => {
   const fetchProfile = async () => {
     try {
       setIsLoading(true)
-      const { data } = await axios.get('http://localhost:3000/profile', authHeader)
+      const { data } = await axios.get('http://localhost:3000/api/user/profile', authHeader)
       setProfile(data.user)
       setForm({ name: data.user.name, phone: data.user.phone || '' })
       if (data.user.role === 'seller') setCars(data.cars || [])
@@ -49,7 +49,7 @@ const ProfilePage = ({ onLogin }) => {
     }
     try {
       setIsSaving(true)
-      const { data } = await axios.put('http://localhost:3000/profile', form, authHeader)
+      const { data } = await axios.put('http://localhost:3000/api/user/profile', form, authHeader)
       setProfile(data.user)
       setIsEditing(false)
       const stored = JSON.parse(localStorage.getItem('user'))
@@ -70,7 +70,7 @@ const ProfilePage = ({ onLogin }) => {
       setIsUploadingAvatar(true)
       const formData = new FormData()
       formData.append('avatar', file)
-      const { data } = await axios.put('http://localhost:3000/profile/avatar', formData, {
+      const { data } = await axios.put('http://localhost:3000/api/userprofile/avatar', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'

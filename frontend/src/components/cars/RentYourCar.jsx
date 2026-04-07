@@ -28,7 +28,7 @@ const RentYourCar = ({ onAddCar }) => {
       formData.append('fuelType', fuelType)
 
       const token = localStorage.getItem('token')
-      const response = await axios.post('http://localhost:3000/post-car', formData, {
+      const response = await axios.post('http://localhost:3000/api/car/post-car', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
