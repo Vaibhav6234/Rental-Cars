@@ -5,6 +5,7 @@ const authRoutes = require("./routes/auth.routes")
 const carRoutes = require("./routes/car.routes")
 const bookingRoutes = require("./routes/booking.routes")
 const profileRoutes = require("./routes/profile.routes")
+const chatRoutes = require("./routes/chat.routes")
 
 const app = express()
 
@@ -18,5 +19,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/car", carRoutes);
 app.use("/api/booking", bookingRoutes);
 app.use("/api/user", profileRoutes);
+app.use("/api/chat", chatRoutes);
 
 module.exports = app
