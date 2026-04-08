@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const bookDateSchema = new mongoose.Schema({
     car: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "CarPost",        
+        ref: "carPost",        
         required: true
     },
     user: {
