@@ -10,6 +10,7 @@ import RentYourCar from "./components/cars/RentYourCar";
 import SearchPage from "./components/cars/SearchPage";
 import CheckoutPage from "./components/CheckoutPage";
 import ProfilePage from "./components/ProfilePage";
+import Chatbot from "./components/Chatbot";
 
 const App = () => {
   const savedUser = JSON.parse(localStorage.getItem('user'))
@@ -45,6 +46,7 @@ const App = () => {
           <Route path="/profile" element={<ProfilePage onLogin={handleLogin} />} />
         </Routes>
         <Footer />
+        <Chatbot />
       </div>
     </Router>
   );
