@@ -57,7 +57,13 @@ const SearchPage = ({ cars }) => {
     return diffInDays > 0 ? diffInDays * Number(pricePerDay ?? 0) : Number(pricePerDay ?? 0)
   }
 
-  const handleBookCar = (car, carId) => {
+  const handleBookCar = () => {
+    if (!localStorage.getItem('token')) {
+      toast.error('Please login to book a car')
+      navigate('/login')
+      return
+    }
+
     const selectedDates = bookingDates[carId] || {}
     const { from, to } = selectedDates
 
