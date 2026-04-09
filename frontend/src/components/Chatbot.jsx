@@ -24,7 +24,7 @@ const Chatbot = () => {
     setLoading(true);
 
     try {
-      const { data } = await axios.post('http://localhost:3000/api/chat', { message: text });
+      const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/chat`, { message: text });
       setMessages((prev) => [...prev, { role: 'bot', text: data.reply }]);
     } catch {
       setMessages((prev) => [...prev, { role: 'bot', text: 'Sorry, something went wrong. Please try again.' }]);

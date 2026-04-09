@@ -17,7 +17,7 @@ const SearchPage = ({ cars }) => {
         setIsLoading(true)
         setError('')
 
-        const response = await axios.get('http://localhost:3000/api/car/get-car')
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/car/get-car`)
         setAvailableCars(response.data.carPosts ?? [])
       } catch (err) {
         setError(err.response?.data?.message || 'Failed to load cars.')
