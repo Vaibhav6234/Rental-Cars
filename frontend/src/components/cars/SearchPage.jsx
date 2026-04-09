@@ -57,7 +57,7 @@ const SearchPage = ({ cars }) => {
     return diffInDays > 0 ? diffInDays * Number(pricePerDay ?? 0) : Number(pricePerDay ?? 0)
   }
 
-  const handleBookCar = () => {
+  const handleBookCar = (car, carId) => {
     if (!localStorage.getItem('token')) {
       toast.error('Please login to book a car')
       navigate('/login')
