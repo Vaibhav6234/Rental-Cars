@@ -15,7 +15,7 @@ const ListingCard = ({ car, carId, selectedDates, totalDays, onDateChange, onBoo
         <img
           src={car.image}
           alt={car.carName}
-          className="h-64 w-full object-cover object-center transition duration-500 group-hover:scale-[1.02]"
+          className="h-48 md:h-64 w-full object-cover object-center transition duration-500 group-hover:scale-[1.02]"
         />
         <div className="absolute inset-0 bg-linear-to-t from-slate-950/70 via-slate-900/10 to-transparent" />
 

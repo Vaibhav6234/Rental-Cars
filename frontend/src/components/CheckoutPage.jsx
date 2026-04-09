@@ -11,9 +11,9 @@ const CheckoutPage = () => {
 
   if (!bookingDetails) {
     return (
-      <div className="min-h-screen bg-gray-100 px-6 py-12">
-        <div className="mx-auto max-w-xl rounded-3xl bg-white p-8 text-center shadow-lg">
-          <h2 className="mb-3 text-3xl font-bold text-blue-950">
+      <div className="min-h-screen bg-gray-100 px-4 md:px-6 py-8 md:py-12">
+        <div className="mx-auto max-w-xl rounded-3xl bg-white p-6 md:p-8 text-center shadow-lg">
+          <h2 className="mb-3 text-2xl md:text-3xl font-bold text-blue-950">
             No Booking Found
           </h2>
           <p className="mb-6 text-gray-600">
@@ -64,13 +64,13 @@ const CheckoutPage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-100 px-6 py-12">
-        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+      <div className="min-h-screen bg-gray-100 px-4 md:px-6 py-8 md:py-12">
+        <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="rounded-3xl bg-white p-6 shadow-lg">
             <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">
               Booking Details
             </p>
-            <h1 className="mb-6 text-3xl font-bold text-blue-950">
+            <h1 className="mb-6 text-2xl md:text-3xl font-bold text-blue-950">
               Review Your Car Before Payment
             </h1>
 
@@ -78,9 +78,9 @@ const CheckoutPage = () => {
               <img
                 src={car.image}
                 alt={car.carName}
-                className="h-72 w-full object-cover"
+                className="h-48 md:h-72 w-full object-cover"
               />
-              <div className="grid gap-4 p-6 md:grid-cols-2">
+              <div className="grid gap-4 p-4 md:p-6 md:grid-cols-2">
                 <div>
                   <p className="text-sm text-gray-500">Car Name</p>
                   <p className="text-xl font-semibold text-gray-900">
@@ -121,7 +121,7 @@ const CheckoutPage = () => {
             <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">
               Checkout
             </p>
-            <h2 className="mb-6 text-3xl font-bold">Total Amount</h2>
+            <h2 className="mb-6 text-2xl md:text-3xl font-bold">Total Amount</h2>
 
             <div className="space-y-4 rounded-2xl bg-white/10 p-5">
               <div className="flex items-center justify-between">

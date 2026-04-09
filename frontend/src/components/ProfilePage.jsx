@@ -102,11 +102,11 @@ const ProfilePage = ({ onLogin }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 px-6 py-10">
+    <div className="min-h-screen bg-gray-100 px-4 md:px-6 py-8 md:py-10">
       <div className="mx-auto max-w-4xl space-y-6">
 
         {/* Profile Card */}
-        <div className="bg-white rounded-2xl shadow-lg p-8">
+        <div className="bg-white rounded-2xl shadow-lg p-5 md:p-8">
           <div className="flex flex-col sm:flex-row items-center gap-6">
 
             {/* Avatar */}
@@ -197,7 +197,7 @@ const ProfilePage = ({ onLogin }) => {
 
         {/* Seller: Posted Cars */}
         {profile?.role === 'seller' && (
-          <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="bg-white rounded-2xl shadow-lg p-5 md:p-8">
             <h3 className="text-xl font-bold text-gray-900 mb-5">Your Posted Cars ({cars.length})</h3>
             {cars.length === 0 ? (
               <p className="text-gray-500">You haven't posted any cars yet.</p>
@@ -205,7 +205,7 @@ const ProfilePage = ({ onLogin }) => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {cars.map((car) => (
                   <div key={car._id} className="flex gap-4 border border-gray-200 rounded-xl p-4">
-                    <img src={car.image} alt={car.carName} className="w-24 h-20 object-cover rounded-lg" />
+                    <img src={car.image} alt={car.carName} className="w-20 h-16 md:w-24 md:h-20 object-cover rounded-lg flex-shrink-0" />
                     <div>
                       <p className="font-semibold text-gray-900">{car.carName}</p>
                       <p className="text-sm text-gray-500">{car.model} {car.fuelType}</p>
@@ -220,7 +220,7 @@ const ProfilePage = ({ onLogin }) => {
 
         {/* Buyer: Booking History */}
         {profile?.role === 'buyer' && (
-          <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="bg-white rounded-2xl shadow-lg p-5 md:p-8">
             <h3 className="text-xl font-bold text-gray-900 mb-5">Your Bookings ({bookings.length})</h3>
             {bookings.length === 0 ? (
               <p className="text-gray-500">You haven't made any bookings yet.</p>
@@ -229,7 +229,7 @@ const ProfilePage = ({ onLogin }) => {
                 {bookings.map((booking) => (
                   <div key={booking._id} className="flex gap-4 border border-gray-200 rounded-xl p-4">
                     {booking.car?.image && (
-                      <img src={booking.car.image} alt={booking.car.carName} className="w-24 h-20 object-cover rounded-lg" />
+                      <img src={booking.car.image} alt={booking.car.carName} className="w-20 h-16 md:w-24 md:h-20 object-cover rounded-lg flex-shrink-0" />
                     )}
                     <div className="flex-1">
                       <p className="font-semibold text-gray-900">{booking.car?.carName || 'Car'}</p>
@@ -238,11 +238,10 @@ const ProfilePage = ({ onLogin }) => {
                       </p>
                       <div className="flex items-center justify-between mt-1">
                         <p className="text-blue-950 font-bold">${booking.totalPrice}</p>
-                        <span className={`text-xs px-2 py-1 rounded-full font-semibold capitalize ${
-                          booking.status === 'confirmed' ? 'bg-green-100 text-green-700' :
+                        <span className={`text-xs px-2 py-1 rounded-full font-semibold capitalize ${booking.status === 'confirmed' ? 'bg-green-100 text-green-700' :
                           booking.status === 'cancelled' ? 'bg-red-100 text-red-700' :
-                          'bg-yellow-100 text-yellow-700'
-                        }`}>
+                            'bg-yellow-100 text-yellow-700'
+                          }`}>
                           {booking.status}
                         </span>
                       </div>
