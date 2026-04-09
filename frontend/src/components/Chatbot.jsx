@@ -41,9 +41,9 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end">
       {open && (
-        <div className="mb-3 w-80 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200">
+        <div className="mb-3 w-72 sm:w-80 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200">
           {/* Header */}
           <div className="bg-blue-950 text-white px-4 py-3 flex items-center justify-between">
             <span className="font-semibold text-sm">Rental Cars Assistant</span>
@@ -51,15 +51,14 @@ const Chatbot = () => {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-3 space-y-2 max-h-72 bg-gray-50">
+          <div className="flex-1 overflow-y-auto p-3 space-y-2 max-h-60 sm:max-h-72 bg-gray-50">
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div
-                  className={`max-w-[75%] px-3 py-2 rounded-xl text-sm whitespace-pre-wrap ${
-                    msg.role === 'user'
-                      ? 'bg-blue-950 text-white rounded-br-none'
-                      : 'bg-white text-gray-800 border border-gray-200 rounded-bl-none'
-                  }`}
+                  className={`max-w-[75%] px-3 py-2 rounded-xl text-sm whitespace-pre-wrap ${msg.role === 'user'
+                    ? 'bg-blue-950 text-white rounded-br-none'
+                    : 'bg-white text-gray-800 border border-gray-200 rounded-bl-none'
+                    }`}
                 >
                   {msg.text}
                 </div>
@@ -99,7 +98,7 @@ const Chatbot = () => {
       {/* Blinking hint bubble */}
       {!open && showHint && (
         <div className="mb-3 flex items-start gap-2 animate-bounce">
-          <div className="relative bg-blue-100 text-gray-800 text-sm px-4 py-2 rounded-2xl rounded-br-none shadow-lg border border-gray-200 max-w-55">
+          <div className="relative bg-blue-100 text-gray-800 text-sm px-4 py-2 rounded-2xl rounded-br-none shadow-lg border border-gray-200 max-w-[14rem]">
             🚗 Need help finding a car?
             <button
               onClick={() => setShowHint(false)}

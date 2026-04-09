@@ -102,7 +102,7 @@ const SearchPage = ({ cars }) => {
           {/* <p className="text-sm font-semibold uppercase tracking-[0.28em] text-blue-700">
             Browse Listings
           </p> */}
-          <h2 className="mt-3 text-4xl font-bold text-slate-950">Available Cars</h2>
+          <h2 className="mt-3 text-2xl md:text-4xl font-bold text-slate-950">Available Cars</h2>
           <p className="mt-3 text-base text-slate-600">
             Pick your dates, compare prices, and book the right car in a few clicks.
           </p>

@@ -56,27 +56,27 @@ const RentYourCar = ({ onAddCar }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-8">
-      <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold mb-6">Rent Your Car</h2>
-        
-        <input 
-          type="text" 
+    <div className="min-h-screen bg-gray-100 py-8 px-4 md:px-8">
+      <div className="max-w-2xl mx-auto bg-white p-5 md:p-8 rounded-lg shadow-lg">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6">Rent Your Car</h2>
+
+        <input
+          type="text"
           placeholder="Car Name"
           value={carName}
           onChange={(e) => setCarName(e.target.value)}
           className="w-full p-3 border border-gray-300 rounded-lg mb-4"
         />
-        
-        <input 
-          type="number" 
+
+        <input
+          type="number"
           placeholder="Price per day"
           value={pricePerDay}
           onChange={(e) => setPricePerDay(e.target.value)}
           className="w-full p-3 border border-gray-300 rounded-lg mb-4"
         />
 
-        <input 
+        <input
           type="text"
           placeholder="Model"
           value={model}
@@ -84,7 +84,7 @@ const RentYourCar = ({ onAddCar }) => {
           className="w-full p-3 border border-gray-300 rounded-lg mb-4"
         />
 
-        <input 
+        <input
           type="text"
           placeholder="Fuel Type"
           value={fuelType}
@@ -92,14 +92,14 @@ const RentYourCar = ({ onAddCar }) => {
           className="w-full p-3 border border-gray-300 rounded-lg mb-4"
         />
 
-        <input 
+        <input
           type="file"
           accept="image/*"
           onChange={(e) => setImage(e.target.files?.[0] || null)}
           className="w-full p-3 border border-gray-300 rounded-lg mb-6"
         />
 
-        <button 
+        <button
           onClick={handlePost}
           disabled={isSubmitting}
           className="w-full bg-blue-950 text-white py-3 rounded-lg cursor-pointer hover:bg-blue-900"

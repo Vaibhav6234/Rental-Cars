@@ -36,13 +36,13 @@ const Login = ({ onLogin }) => {
       <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden">
 
         {/* Brand header */}
-        <div className="bg-blue-950 px-8 py-6 text-center">
+        <div className="bg-blue-950 px-5 md:px-8 py-6 text-center">
           {/* <span className="text-3xl">🚗</span> */}
           <h1 className="text-2xl font-bold text-white mt-1">Rental Cars</h1>
           <p className="text-blue-200 text-sm mt-1">Welcome back! Sign in to continue</p>
         </div>
 
-        <div className="px-8 py-8 bg-white">
+        <div className="px-5 md:px-8 py-6 md:py-8 bg-white">
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>

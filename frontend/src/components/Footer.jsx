@@ -2,13 +2,13 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div className="bg-blue-950 text-white px-8 py-10">
-      <div className="flex justify-between mb-8">
-        <div className="flex-1">
-          <h3 className="text-2xl font-bold mb-4">Rental Cars</h3>
+    <div className="bg-blue-950 text-white px-4 md:px-8 py-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div>
+          <h3 className="text-xl md:text-2xl font-bold mb-4">Rental Cars</h3>
           <p className="text-gray-300">Your trusted partner for premium car rentals</p>
         </div>
-        <div className="flex-1">
+        <div>
           <h4 className="font-semibold mb-3">Quick Links</h4>
           <ul className="text-gray-300 space-y-2">
             <li>Home</li>
@@ -17,7 +17,7 @@ const Footer = () => {
             <li>Contact</li>
           </ul>
         </div>
-        <div className="flex-1">
+        <div>
           <h4 className="font-semibold mb-3">Contact Us</h4>
           <ul className="text-gray-300 space-y-2">
             <li>Email: info@rentalcars.com</li>
