@@ -95,6 +95,27 @@ const SearchPage = ({ cars }) => {
     })
   }
 
+  const SkeletonCard = () => (
+    <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.08)]">
+      <div className="h-48 md:h-64 w-full bg-slate-200 animate-pulse" />
+      <div className="space-y-4 p-5">
+        <div className="flex gap-2">
+          <div className="h-8 w-24 rounded-full bg-slate-200 animate-pulse" />
+          <div className="h-8 w-20 rounded-full bg-slate-200 animate-pulse" />
+          <div className="h-8 w-22 rounded-full bg-slate-200 animate-pulse" />
+        </div>
+        <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4 space-y-3">
+          <div className="h-4 w-32 bg-slate-200 rounded animate-pulse" />
+          <div className="grid gap-3 md:grid-cols-2">
+            <div className="h-10 rounded-2xl bg-slate-200 animate-pulse" />
+            <div className="h-10 rounded-2xl bg-slate-200 animate-pulse" />
+          </div>
+        </div>
+        <div className="h-14 rounded-3xl bg-slate-200 animate-pulse" />
+      </div>
+    </div>
+  )
+
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,#f8fafc_0%,#eef2ff_50%,#f8fafc_100%)] px-6 py-10 md:px-8">
       <div className="mx-auto max-w-7xl">
@@ -107,13 +128,11 @@ const SearchPage = ({ cars }) => {
             Pick your dates, compare prices, and book the right car in a few clicks.
           </p>
         </div>
-        {isLoading && (
-          <p className="mb-6 text-center text-xl text-gray-500">Loading cars...</p>
-        )}
         {error && !isLoading && (
           <p className="mb-6 text-center text-lg text-red-500">{error}</p>
         )}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {isLoading && Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
           {availableCars.map((car, index) => {
             const carId = car._id || String(index)
             const selectedDates = bookingDates[carId] || { from: '', to: '' }
