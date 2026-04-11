@@ -98,7 +98,7 @@ const Chatbot = () => {
       {/* Blinking hint bubble */}
       {!open && showHint && (
         <div className="mb-3 flex items-start gap-2 animate-bounce">
-          <div className="relative bg-blue-100 text-gray-800 text-sm px-4 py-2 rounded-2xl rounded-br-none shadow-lg border border-gray-200 max-w-[14rem]">
+          <div className="relative bg-white text-gray-800 text-sm px-4 py-2 rounded-2xl rounded-br-none shadow-lg border border-gray-200 max-w-67.5">
             🚗 Need help finding a car?
             <button
               onClick={() => setShowHint(false)}
