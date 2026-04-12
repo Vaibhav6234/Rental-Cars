@@ -9,6 +9,8 @@ const SearchPage = ({ cars }) => {
   const [bookingDates, setBookingDates] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
+  const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -16,9 +18,9 @@ const SearchPage = ({ cars }) => {
       try {
         setIsLoading(true)
         setError('')
-
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/car/get-car`)
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/car/get-car?page=${page}&limit=6`)
         setAvailableCars(response.data.carPosts ?? [])
+        setTotalPages(response.data.totalPages ?? 1)
       } catch (err) {
         setError(err.response?.data?.message || 'Failed to load cars.')
         setAvailableCars(cars ?? [])
@@ -26,9 +28,8 @@ const SearchPage = ({ cars }) => {
         setIsLoading(false)
       }
     }
-
     fetchCars()
-  }, [cars])
+  }, [page])
 
   const handleDateChange = (carId, field, value) => {
     setBookingDates((prev) => ({
@@ -120,9 +121,6 @@ const SearchPage = ({ cars }) => {
     <div className="min-h-screen bg-[linear-gradient(180deg,#f8fafc_0%,#eef2ff_50%,#f8fafc_100%)] px-6 py-10 md:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 text-center">
-          {/* <p className="text-sm font-semibold uppercase tracking-[0.28em] text-blue-700">
-            Browse Listings
-          </p> */}
           <h2 className="mt-3 text-2xl md:text-4xl font-bold text-slate-950">Available Cars</h2>
           <p className="mt-3 text-base text-slate-600">
             Pick your dates, compare prices, and book the right car in a few clicks.
@@ -153,6 +151,37 @@ const SearchPage = ({ cars }) => {
         </div>
         {!isLoading && availableCars.length === 0 && (
           <p className="text-center text-xl text-gray-500">No cars available yet</p>
+        )}
+        {totalPages > 1 && (
+          <div className="mt-10 flex items-center justify-center gap-2">
+            <button
+              onClick={() => setPage(p => Math.max(1, p - 1))}
+              disabled={page === 1}
+              className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition"
+            >
+              Previous
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+              <button
+                key={p}
+                onClick={() => setPage(p)}
+                className={`rounded-xl px-4 py-2 text-sm font-medium transition cursor-pointer ${
+                  p === page
+                    ? 'bg-slate-900 text-white shadow'
+                    : 'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                }`}
+              >
+                {p}
+              </button>
+            ))}
+            <button
+              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
+              className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition"
+            >
+              Next
+            </button>
+          </div>
         )}
       </div>
     </div>
