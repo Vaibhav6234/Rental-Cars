@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/pages/Header";
+import Footer from "./components/pages/Footer";
 import LandingPage from "./components/LandingPage/LandingPage";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
 import RentYourCar from "./components/cars/RentYourCar";
 import SearchPage from "./components/cars/SearchPage";
-import CheckoutPage from "./components/CheckoutPage";
-import ProfilePage from "./components/ProfilePage";
-import Chatbot from "./components/Chatbot";
+import CheckoutPage from "./components/pages/CheckoutPage";
+import ProfilePage from "./components/pages/ProfilePage";
+import Chatbot from "./components/pages/Chatbot";
 
 const App = () => {
   const savedUser = JSON.parse(localStorage.getItem('user'))

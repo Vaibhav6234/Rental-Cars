@@ -29,11 +29,21 @@ router.post("/post-car", authMiddleware, upload.single("image"), async (req, res
 })
 
 router.get("/get-car", async (req, res) => {
-    const carPosts = await carPostModel.find();
+    const page = Math.max(1, parseInt(req.query.page) || 1)
+    const limit = Math.max(1, parseInt(req.query.limit) || 6)
+    const skip = (page - 1) * limit
+
+    const [carPosts, total] = await Promise.all([
+        carPostModel.find().skip(skip).limit(limit),
+        carPostModel.countDocuments()
+    ])
 
     return res.status(200).json({
         message: "Car posts retrieved successfully",
-        carPosts
+        carPosts,
+        total,
+        page,
+        totalPages: Math.ceil(total / limit)
     })
 })
 
