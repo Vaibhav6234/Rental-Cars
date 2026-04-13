@@ -1,18 +1,32 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import landingPageImage from '/landing-page-img.jpg'
+
+const images = [
+  'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1600&q=80',
+  'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&q=80',
+  'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1600&q=80',
+  'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1600&q=80',
+]
 
 const Hero = () => {
   const navigate = useNavigate()
+  const [current, setCurrent] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent(prev => (prev + 1) % images.length)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <section className="relative h-[90vh] flex items-center justify-center text-white">
       
       {/* Background Image */}
       <img
-        src={landingPageImage}
+        src={images[current]}
         alt="Car"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
       />
 
       {/* Dark Overlay */}
