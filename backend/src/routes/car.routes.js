@@ -33,9 +33,14 @@ router.get("/get-car", async (req, res) => {
     const limit = Math.max(1, parseInt(req.query.limit) || 6)
     const skip = (page - 1) * limit
 
+    const search = req.query.search?.trim()
+    const filter = search
+        ? { $or: [{ carName: { $regex: search, $options: 'i' } }, { model: { $regex: search, $options: 'i' } }] }
+        : {}
+
     const [carPosts, total] = await Promise.all([
-        carPostModel.find().skip(skip).limit(limit),
-        carPostModel.countDocuments()
+        carPostModel.find(filter).skip(skip).limit(limit),
+        carPostModel.countDocuments(filter)
     ])
 
     return res.status(200).json({

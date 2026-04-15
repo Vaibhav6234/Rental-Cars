@@ -11,6 +11,8 @@ const SearchPage = ({ cars }) => {
   const [error, setError] = useState('')
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [search, setSearch] = useState('')
+  const [searchInput, setSearchInput] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -18,7 +20,7 @@ const SearchPage = ({ cars }) => {
       try {
         setIsLoading(true)
         setError('')
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/car/get-car?page=${page}&limit=6`)
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/car/get-car?page=${page}&limit=6${search ? `&search=${encodeURIComponent(search)}` : ''}`)
         setAvailableCars(response.data.carPosts ?? [])
         setTotalPages(response.data.totalPages ?? 1)
       } catch (err) {
@@ -29,7 +31,7 @@ const SearchPage = ({ cars }) => {
       }
     }
     fetchCars()
-  }, [page])
+  }, [page, search])
 
   const handleDateChange = (carId, field, value) => {
     setBookingDates((prev) => ({
@@ -120,11 +122,40 @@ const SearchPage = ({ cars }) => {
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,#f8fafc_0%,#eef2ff_50%,#f8fafc_100%)] px-6 py-10 md:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-10 text-center">
-          <h2 className="mt-3 text-2xl md:text-4xl font-bold text-slate-950">Available Cars</h2>
-          <p className="mt-3 text-base text-slate-600">
-            Pick your dates, compare prices, and book the right car in a few clicks.
-          </p>
+        <div className="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h2 className="text-2xl md:text-4xl font-bold text-slate-950">Available Cars</h2>
+            <p className="mt-2 text-base text-slate-600">
+              Pick your dates, compare prices, and book the right car in a few clicks.
+            </p>
+          </div>
+          <form
+            onSubmit={(e) => { e.preventDefault(); setPage(1); setSearch(searchInput.trim()) }}
+            className="flex items-center gap-2 w-full md:w-auto"
+          >
+            <input
+              type="text"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              placeholder="Search by car name or model..."
+              className="flex-1 md:w-64 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-800 shadow-sm outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-100 transition"
+            />
+            {search && (
+              <button
+                type="button"
+                onClick={() => { setSearchInput(''); setSearch(''); setPage(1) }}
+                className="rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-500 hover:bg-slate-50 transition cursor-pointer"
+              >
+                Clear
+              </button>
+            )}
+            <button
+              type="submit"
+              className="rounded-2xl bg-slate-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-slate-700 transition cursor-pointer"
+            >
+              Search
+            </button>
+          </form>
         </div>
         {error && !isLoading && (
           <p className="mb-6 text-center text-lg text-red-500">{error}</p>
@@ -150,7 +181,9 @@ const SearchPage = ({ cars }) => {
           })}
         </div>
         {!isLoading && availableCars.length === 0 && (
-          <p className="text-center text-xl text-gray-500">No cars available yet</p>
+          <p className="text-center text-xl text-gray-500">
+            {search ? `No cars found for "${search}"` : 'No cars available yet'}
+          </p>
         )}
         {totalPages > 1 && (
           <div className="mt-10 flex items-center justify-center gap-2">
