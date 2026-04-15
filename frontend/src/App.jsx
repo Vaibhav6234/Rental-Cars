@@ -11,6 +11,7 @@ import SearchPage from "./components/cars/SearchPage";
 import CheckoutPage from "./components/pages/CheckoutPage";
 import ProfilePage from "./components/pages/ProfilePage";
 import Chatbot from "./components/pages/Chatbot";
+import FavoritesPage from "./components/cars/FavoritesPage";
 
 const App = () => {
   const savedUser = JSON.parse(localStorage.getItem('user'))
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/search" element={<SearchPage cars={cars} />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/profile" element={<ProfilePage onLogin={handleLogin} />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
         </Routes>
         <Footer />
         <Chatbot />

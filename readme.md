@@ -13,7 +13,8 @@ The project includes JWT-based authentication, profile management, car listing u
 - Buyer and seller role selection during signup
 - JWT-protected backend routes
 - Seller car posting with image upload
-- Public car search and listing page
+- Public car search and listing page with search by name or model
+- Save cars to favorites (stored locally) and view them on a dedicated page
 - Booking checkout flow with date-based total price calculation
 - Profile editing with avatar upload
 - Seller dashboard showing posted cars
@@ -165,7 +166,8 @@ Then open the Vite local URL shown in the terminal.
 - `/` - landing page
 - `/login` - login page
 - `/register` - registration page
-- `/search` - browse available cars
+- `/search` - browse and search available cars
+- `/favorites` - saved favorite cars
 - `/rent` - seller car posting page
 - `/checkout` - booking confirmation page
 - `/profile` - profile, cars, and bookings page
