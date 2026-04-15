@@ -81,6 +81,13 @@ const Header = ({ userType, onLogout }) => {
                   >
                     Edit Profile
                   </Link>
+                  <Link
+                    to="/favorites"
+                    onClick={() => setDropdownOpen(false)}
+                    className="flex items-center gap-2 px-4 py-3 text-sm hover:bg-gray-50 transition"
+                  >
+                    Favorites
+                  </Link>
                   <button
                     onClick={handleLogout}
                     className="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition"
@@ -142,6 +149,9 @@ const Header = ({ userType, onLogout }) => {
               </div>
               <Link to="/profile" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:underline">
                 Edit Profile
+              </Link>
+              <Link to="/favorites" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:underline">
+                Favorites
               </Link>
               <button onClick={handleLogout} className="block w-full text-left py-2 text-red-300 hover:text-red-200">
                 Logout

@@ -57,10 +57,10 @@ const Hero = () => {
           </button>
 
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/rent')}
             className="border border-white hover:bg-white hover:text-black px-8 py-3 rounded-lg text-lg font-medium transition"
           >
-            Learn More
+            Rent Your Car
           </button>
         </div>
 
