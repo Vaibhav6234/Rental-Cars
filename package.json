@@ -1,0 +1,26 @@
+{
+  "name": "rental-cars",
+  "version": "1.0.0",
+  "description": "Rental Cars is a full-stack car rental marketplace built with React, Vite, Node.js, Express, and MongoDB. It supports two user roles:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
+    "frontend": "cd frontend && npm run dev",
+    "backend": "cd backend && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vaibhav6234/Rental-Cars.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vaibhav6234/Rental-Cars/issues"
+  },
+  "homepage": "https://github.com/Vaibhav6234/Rental-Cars#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
