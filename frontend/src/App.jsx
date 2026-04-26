@@ -12,6 +12,7 @@ import CheckoutPage from "./components/pages/CheckoutPage";
 import ProfilePage from "./components/pages/ProfilePage";
 import Chatbot from "./components/pages/Chatbot";
 import FavoritesPage from "./components/cars/FavoritesPage";
+import InboxPage from "./components/pages/InboxPage";
 
 const App = () => {
   const savedUser = JSON.parse(localStorage.getItem('user'))
@@ -46,6 +47,7 @@ const App = () => {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/profile" element={<ProfilePage onLogin={handleLogin} />} />
           <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/inbox" element={<InboxPage />} />
         </Routes>
         <Footer />
         <Chatbot />

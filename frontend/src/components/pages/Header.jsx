@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Header = ({ userType, onLogout }) => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'))
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [inboxCount, setInboxCount] = useState(0)
   const dropdownRef = useRef()
 
   const handleLogout = () => {
@@ -29,6 +31,38 @@ const Header = ({ userType, onLogout }) => {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (!token || !userType) {
+      setInboxCount(0)
+      return
+    }
+
+    let isMounted = true
+
+    const fetchInboxCount = async () => {
+      try {
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/booking/inbox`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+
+        const list = data?.inbox || []
+        const pendingCount = list.filter((item) => item.status === 'pending').length
+        if (isMounted) setInboxCount(pendingCount)
+      } catch {
+        if (isMounted) setInboxCount(0)
+      }
+    }
+
+    fetchInboxCount()
+    const timer = setInterval(fetchInboxCount, 30000)
+
+    return () => {
+      isMounted = false
+      clearInterval(timer)
+    }
+  }, [userType])
 
   return (
     <div className="relative bg-blue-950 text-white">
@@ -54,7 +88,7 @@ const Header = ({ userType, onLogout }) => {
               <button
                 onClick={() => setDropdownOpen((prev) => !prev)}
                 title={user?.name}
-                className="focus:outline-none"
+                className="focus:outline-none relative"
               >
                 {user?.avatar ? (
                   <img
@@ -66,6 +100,11 @@ const Header = ({ userType, onLogout }) => {
                   <div className="w-10 h-10 rounded-full bg-white text-blue-950 flex items-center justify-center font-bold text-sm hover:bg-blue-100 transition cursor-pointer">
                     {getInitials(user?.name)}
                   </div>
+                )}
+                {inboxCount > 0 && (
+                  <span className="absolute -top-2 -right-2 min-w-5 h-5 px-1 rounded-full bg-red-600 text-white text-[11px] font-bold flex items-center justify-center border border-white">
+                    {inboxCount > 99 ? '99+' : inboxCount}
+                  </span>
                 )}
               </button>
               {dropdownOpen && (
@@ -87,6 +126,18 @@ const Header = ({ userType, onLogout }) => {
                     className="flex items-center gap-2 px-4 py-3 text-sm hover:bg-gray-50 transition"
                   >
                     Favorites
+                  </Link>
+                  <Link
+                    to="/inbox"
+                    onClick={() => setDropdownOpen(false)}
+                    className="flex items-center justify-between gap-2 px-4 py-3 text-sm hover:bg-gray-50 transition"
+                  >
+                    <span>Inbox</span>
+                    {inboxCount > 0 && (
+                      <span className="min-w-5 h-5 px-1 rounded-full bg-red-600 text-white text-[11px] font-bold flex items-center justify-center">
+                        {inboxCount > 99 ? '99+' : inboxCount}
+                      </span>
+                    )}
                   </Link>
                   <button
                     onClick={handleLogout}
@@ -152,6 +203,14 @@ const Header = ({ userType, onLogout }) => {
               </Link>
               <Link to="/favorites" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:underline">
                 Favorites
+              </Link>
+              <Link to="/inbox" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-between py-2 hover:underline">
+                <span>Inbox</span>
+                {inboxCount > 0 && (
+                  <span className="min-w-5 h-5 px-1 rounded-full bg-red-600 text-white text-[11px] font-bold flex items-center justify-center">
+                    {inboxCount > 10 ? '10+' : inboxCount}
+                  </span>
+                )}
               </Link>
               <button onClick={handleLogout} className="block w-full text-left py-2 text-red-300 hover:text-red-200">
                 Logout
