@@ -155,10 +155,10 @@ const CheckoutPage = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
           <div className="w-full max-w-md rounded-3xl bg-white p-8 text-center shadow-2xl">
             <h3 className="mb-3 text-3xl font-bold text-green-700">
-              Payment Done
+              Request Sent
             </h3>
             <p className="mb-6 text-gray-600">
-              Your booking has been confirmed successfully.
+              Your booking request is sent to the seller. You will get status updates in Inbox.
             </p>
             <button
               onClick={closeModal}

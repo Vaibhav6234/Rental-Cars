@@ -1,182 +1,148 @@
 # Rental Cars
 
-Rental Cars is a full-stack car rental marketplace built with React, Vite, Node.js, Express, and MongoDB. It supports two user roles:
+Rental Cars is a full-stack car rental marketplace built with React, Vite, Node.js, Express, and MongoDB.
 
-- `buyer`: browse cars, choose booking dates, and place bookings
-- `seller`: upload car listings with images and manage posted cars from the profile page
-
-The project includes JWT-based authentication, profile management, car listing uploads, booking flow, and image hosting through ImageKit.
+It supports two user roles:
+- `buyer`: browse cars, pick dates, and place bookings
+- `seller`: post car listings with images and manage their listings
 
 ## Features
 
-- User registration and login
-- Buyer and seller role selection during signup
-- JWT-protected backend routes
+- JWT-based authentication
+- Buyer and seller role-based flow
 - Seller car posting with image upload
-- Public car search and listing page with search by name or model
-- Save cars to favorites (stored locally) and view them on a dedicated page
-- Booking checkout flow with date-based total price calculation
+- Car browsing and search by name/model
+- Favorites page (local storage)
+- Booking checkout with date-based pricing
 - Profile editing with avatar upload
-- Seller dashboard showing posted cars
-- Buyer dashboard showing booking history
+- Seller dashboard for posted cars
+- Buyer dashboard for bookings
+- Inbox view for bookings (buyer + seller)
+- AI chatbot (OpenRouter) for rental help
 
 ## Tech Stack
 
-### Frontend
-
-- React 19
-- Vite
-- React Router
-- Axios
-- React Hot Toast
-- Tailwind CSS import in `index.css`
-
-### Backend
-
-- Node.js
-- Express
-- MongoDB with Mongoose
-- JWT authentication
-- bcryptjs
-- Multer
-- ImageKit
+- Frontend: React 19, Vite, React Router, Axios, Tailwind CSS
+- Backend: Node.js, Express, MongoDB (Mongoose), JWT, bcryptjs, Multer, ImageKit
+- AI: OpenRouter (via `openai` SDK)
 
 ## Project Structure
 
 ```text
 Rental Cars/
 |-- frontend/
-|   |-- src/
-|   |   |-- components/
-|   |   |-- App.jsx
-|   |   |-- main.jsx
-|   |   `-- index.css
-|   |-- package.json
-|   `-- vite.config.js
 |-- backend/
-|   |-- src/
-|   |   |-- db/
-|   |   |-- middleware/
-|   |   |-- model/
-|   |   |-- services/
-|   |   `-- app.js
-|   |-- server.js
-|   `-- package.json
+|-- package.json
 `-- readme.md
 ```
 
-## Main User Flow
+## Prerequisites
 
-### Buyer flow
-
-1. Register or log in as a `buyer`
-2. Open the search page and browse available cars
-3. Choose booking start and end dates
-4. Continue to checkout
-5. Confirm booking
-6. View bookings from the profile page
-
-### Seller flow
-
-1. Register or log in as a `seller`
-2. Open `Rent your car`
-3. Upload a car image and listing details
-4. Submit the listing
-5. View posted cars from the profile page
+- Node.js 18+
+- npm 9+
+- MongoDB database (local or Atlas)
+- ImageKit account
+- OpenRouter API key (for chatbot)
 
 ## Environment Variables
 
-Create a `.env` file inside the `backend` folder.
+Create `backend/.env` (do not commit it):
 
 ```env
 PORT=3000
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
+OPENROUTER_API_KEY=your_openrouter_api_key
+
+# Used for email-related links (if configured in your env)
+FRONTEND_URL=http://localhost:5173
+EMAIL_USER=your_gmail@gmail.com
+EMAIL_PASS=your_gmail_app_password
+```
+
+Create `frontend/.env`:
+
+```env
+VITE_API_URL=http://localhost:3000
 ```
 
 ## Installation
 
-### 1. Install frontend dependencies
-
 ```bash
-cd frontend
 npm install
+npm install --prefix frontend
+npm install --prefix backend
 ```
 
-### 2. Install backend dependencies
+## Run Locally
+
+Run frontend and backend together from the project root:
 
 ```bash
-cd backend
-npm install
-```
-
-## Run the Project
-
-### Start the backend
-
-```bash
-cd backend
-node server.js
-```
-
-The backend code listens on port `3000`.
-
-### Start the frontend
-
-```bash
-cd frontend
 npm run dev
 ```
 
-Then open the Vite local URL shown in the terminal.
+Individual services:
 
-## API Endpoints
+```bash
+# backend (http://localhost:3000)
+npm run dev --prefix backend
 
-### Auth
+# frontend (Vite dev server)
+npm run dev --prefix frontend
+```
 
-- `POST /register` - create a user account
-- `POST /login` - authenticate user and return token
+## Key API Endpoints
 
-### Cars
+Base URL (local): `http://localhost:3000`
 
-- `POST /post-car` - seller-only route to create a car listing
-- `GET /get-car` - fetch all car listings
+Auth (`/api/auth`)
+- `POST /api/auth/register`
+- `POST /api/auth/login`
 
-### Booking
+Cars (`/api/car`)
+- `POST /api/car/post-car` (seller, multipart form with `image`)
+- `GET /api/car/get-car` (supports `page`, `limit`, `search`)
 
-- `POST /book-car` - create a booking for the logged-in user
+Bookings + inbox (`/api/booking`)
+- `POST /api/booking/book-car` (buyer)
+- `GET /api/booking/inbox` (buyer + seller)
+- `PATCH /api/booking/:bookingId/status` (seller, body: `{ "status": "confirmed" | "cancelled" }`)
+- `DELETE /api/booking/:bookingId` (buyer or seller; only after processed)
 
-### Profile
+Profile (`/api/user`)
+- `GET /api/user/profile`
+- `PUT /api/user/profile`
+- `PUT /api/user/profile/avatar` (multipart form with `avatar`)
 
-- `GET /profile` - fetch the logged-in user profile
-- `PUT /profile` - update name and phone
-- `PUT /profile/avatar` - upload profile avatar
+Chatbot (`/api/chat`)
+- `POST /api/chat` (body: `{ "message": "..." }`)
+
+## Frontend Routes
+
+- `/`
+- `/login`
+- `/register`
+- `/search`
+- `/favorites`
+- `/rent`
+- `/checkout`
+- `/profile`
+- `/inbox`
 
 ## Notes
 
 - Protected routes require `Authorization: Bearer <token>`
-- Car image uploads and avatar uploads are stored through ImageKit
-- The frontend currently calls the backend at `http://localhost:3000`
-- The backend package does not currently include a dev script, so it is started with `node server.js`
-- There are no automated tests configured yet
-
-## Current Pages
-
-- `/` - landing page
-- `/login` - login page
-- `/register` - registration page
-- `/search` - browse and search available cars
-- `/favorites` - saved favorite cars
-- `/rent` - seller car posting page
-- `/checkout` - booking confirmation page
-- `/profile` - profile, cars, and bookings page
+- Frontend uses `import.meta.env.VITE_API_URL` for the backend base URL
+- Backend mounts routes under `/api/*`
+- No automated tests are configured yet
 
 ## Future Improvements
 
-- Add booking availability validation to prevent overlapping reservations
+- Prevent overlapping bookings with availability checks
 - Add seller-side booking management
-- Add better error handling and validation on the backend
-- Add frontend environment variables for API base URL
-- Add automated tests
-- Add payment gateway integration instead of simulated checkout
+- Strengthen validation and error handling
+- Move API base URL to environment config
+- Add automated tests and CI
+- Integrate real payments
