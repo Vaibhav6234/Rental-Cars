@@ -54,11 +54,6 @@ MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
 OPENROUTER_API_KEY=your_openrouter_api_key
-
-# Used for email-related links (if configured in your env)
-FRONTEND_URL=http://localhost:5173
-EMAIL_USER=your_gmail@gmail.com
-EMAIL_PASS=your_gmail_app_password
 ```
 
 Create `frontend/.env`:
