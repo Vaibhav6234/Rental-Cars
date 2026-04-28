@@ -1,18 +1,21 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import Hero from "./Hero";
-import HowItWorks from "./HowItWorks";
-import CustomerReview from "./CustomerReview";
-import Faq from "./Faq";
-import Carousel from "./Carousel";
+
+const HowItWorks = lazy(() => import("./HowItWorks"));
+const Carousel = lazy(() => import("./Carousel"));
+const CustomerReview = lazy(() => import("./CustomerReview"));
+const Faq = lazy(() => import("./Faq"));
 
 const LandingPage = () => {
   return (
     <div>
       <Hero />
-      <HowItWorks/>
-      <Carousel />
-      <CustomerReview/>
-      <Faq/>
+      <Suspense fallback={null}>
+        <HowItWorks />
+        <Carousel />
+        <CustomerReview />
+        <Faq />
+      </Suspense>
     </div>
   );
 };
